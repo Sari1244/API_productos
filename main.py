@@ -6,13 +6,13 @@ app = FastAPI()
 
 crear_tabla()
 
-@app.get("/producto")
+@app.post("/producto")
 def crear_producto(producto:Producto):
     
     conn = get_connection()
     
     conn.execute("INSERT INTO productos" \
-        "(nombre, descripcion, precio_cop, precio_usd, estado) VALUES(?,?,?,?,?)",(producto.nombre, producto.descripcion, producto.precio_cop, producto.precio_usd, producto.estado))
+        "(nombre, referencia, precio_cop, precio_usd, estado) VALUES(?,?,?,?,?)",(producto.nombre, producto.referencia, producto.precio_cop, producto.precio_usd, producto.estado))
     
     conn.commit()
     conn.close()
@@ -30,3 +30,4 @@ def listar():
     
     conn.close()
     return[dict(x) for x in productos]
+
